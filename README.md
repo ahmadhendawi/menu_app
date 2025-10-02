@@ -1,24 +1,22 @@
-# README
+A simple Restaurant Menu_app made using rails 8, tailwind-css and PostgreSQL where users can browse restaurant menu's and create orders to a simple checkout.
+and Admins can log into their restaurants, or sign up new ones and edit their menu's.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+SETUP STEPS:
+1- clone repo
+2- bundle install
+3- setup the database
+  A- rails db:create
+  B- rails db:migrate
+  C- rails db:seed
+  
+  DATABASE USERNAME: ahmadh02
+  DATABASE PASSWORD: my1db
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+PRE-EXISTING RESTAURANTS:
+  1- Burger Palace
+     email:burger.palace@gmail.com
+     password:burger123
+     
+  2- Pizza World
+     email:pizza.world@gmail.com
+     password:pizza123
