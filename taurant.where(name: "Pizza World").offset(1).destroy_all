@@ -1,0 +1,25 @@
+=> 
+[[32m#<Restaurant:0x0000760e4d182c58[0m
+  id: [34m[1m3[0m,
+  name: [31m[1m"[0m[31mBurger Palace[0m[31m[1m"[0m,
+  slug: [31m[1m"[0m[31mburger-palace[0m[31m[1m"[0m,
+  email: [31m[1m"[0m[31m[FILTERED][0m[31m[1m"[0m,
+  password_digest: [31m[1m"[0m[31m[FILTERED][0m[31m[1m"[0m,
+  created_at: [31m[1m"[0m[31m2025-09-24 14:57:33.447087000 +0000[0m[31m[1m"[0m,
+  updated_at: [31m[1m"[0m[31m2025-09-24 14:57:33.447087000 +0000[0m[31m[1m"[0m[32m>[0m,
+ [32m#<Restaurant:0x0000760e3ff85b60[0m
+  id: [34m[1m5[0m,
+  name: [31m[1m"[0m[31mBurger Palace[0m[31m[1m"[0m,
+  slug: [31m[1m"[0m[31mburger-palace[0m[31m[1m"[0m,
+  email: [31m[1m"[0m[31m[FILTERED][0m[31m[1m"[0m,
+  password_digest: [31m[1m"[0m[31m[FILTERED][0m[31m[1m"[0m,
+  created_at: [31m[1m"[0m[31m2025-09-24 15:48:55.969356000 +0000[0m[31m[1m"[0m,
+  updated_at: [31m[1m"[0m[31m2025-09-24 15:48:55.969356000 +0000[0m[31m[1m"[0m[32m>[0m,
+ [32m#<Restaurant:0x0000760e3ff85a20[0m
+  id: [34m[1m7[0m,
+  name: [31m[1m"[0m[31mBurger Palace[0m[31m[1m"[0m,
+  slug: [31m[1m"[0m[31mburger-palace[0m[31m[1m"[0m,
+  email: [31m[1m"[0m[31m[FILTERED][0m[31m[1m"[0m,
+  password_digest: [31m[1m"[0m[31m[FILTERED][0m[31m[1m"[0m,
+  created_at: [31m[1m"[0m[31m2025-09-24 15:55:29.830682000 +0000[0m[31m[1m"[0m,
+  updated_at: [31m[1m"[0m[31m2025-09-24 15:55:29.830682000 +0000[0m[31m[1m"[0m[32m>[0m]

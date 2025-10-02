@@ -1,0 +1,50 @@
+<%#the admin's dashboard of restaurant menus and admin's actions%>
+<% content_for :title, "Admin Dashboard" %>
+
+<div class="max-w-5xl mx-auto space-y-6">
+  <% if notice.present? %>
+  <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice"><%= notice %></p>
+  <% end %>
+  <div class="mx-auto text-center">
+    <%= form_with url: admin_dashboard_path, method: :get, local: true, class: "mb-4" do |f| %>
+    <%= f.text_field :search, value: params[:search], placeholder: " Search for an item...", class: "border px-2 py-1 rounded-md" %>
+    <%= f.submit "Search", class: "px-3 py-1 bg-blue-600 text-white rounded" %>
+    <% end %>
+  </div>
+    <h1 class="text-3xl font-bold">Welcome, <%= current_restaurant.name %></h1>
+
+      <div class="flex space-x-3">
+        <div class="p-4 bg-green-600 rounded-md shadow-md flex-1">
+          <p class="text-sm font-medium">Active items</p>
+          <p class="text-2xl font-bold"><%= @active_count %></p>
+        </div>
+        <div class="p-4 bg-red-600 rounded-md shadow-md flex-1">
+          <p class="text-sm font-medium">Inactive items</p>
+          <p class="text-2xl font-bold"><%= @inactive_count %></p>
+        </div>
+      </div>
+
+  <div>
+    <h2 class="text-2xl font-semibold mb-3">Your Menu Items</h2>
+    <div class="space-y-4">
+      <% @menu_items.each do |item| %>
+        <div class="p-4 border rounded-md flex justify-between items-center">
+          <div>
+            <strong><%= item.name %></strong> - $<%= item.price %> 
+            (<%= item.active? ? "Active" : "Inactive" %>)
+          </div>
+          <div class="flex space-x-2">
+            <%= link_to "Edit", edit_menu_item_path(item), class: "px-3 py-1 bg-gray-100 rounded-md hover:bg-gray-200" %>
+            <%= button_to "Delete", item, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "px-3 py-1 bg-red-600 text-white rounded-md hover:bg-red-500" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+      <div class="mx-auto text-center">
+        <%= link_to "Add New Menu Item", new_menu_item_path, class: "mt-4 inline-block px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-500" %>
+      </div>
+      <div class="mx-auto text-center">
+        <%= button_to "Log Out", logout_path, method: :delete, class: "mt-2 inline-block px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-500" %>
+      </div>
+</div>

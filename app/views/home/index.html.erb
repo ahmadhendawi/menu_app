@@ -1,0 +1,21 @@
+<% content_for :title, "Restaurants" %>
+  <div class="max-w-4xl mx-auto text-center border border-gray-300 rounded-md shadow-md p-6 bg-white">
+    <h1 class="text-4xl font-bold mb-4 font-serif">Welcome to our fine dining service!</h1>
+    <p class="text-2xl font-bold mb-12 font-serif">Choose a restaurant to check out its fabulous menu</p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-12">
+      <% Restaurant.all.uniq(&:slug).each do |restaurant| %>
+        <div class="p-6 px-8 border border-gray-300 rounded-md shadow-md">
+          <h2 class="text-2xl font-semibold mb-6"><%= restaurant.name %></h2>
+          <%= link_to "View Menu", menu_path(restaurant.slug), class: "inline-block px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white font-medium rounded-md" %>
+        </div>
+      <% end %>
+    </div>
+       <div  class="p-8 py-3 px-8 rounded-md mt-8">
+           <h2 class="text-2xl font-semibold mb-6">Are you a restaurant owner?</h2>
+            <%= link_to "Log into your restaurant", login_path, class: "inline-block px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white font-medium rounded-md mb-5" %>
+        </div>
+        <div>
+          <h2 class="text-lg font-semibold mb-3">Want to register your own restaurant?</h2>
+          <%= link_to "Sign up!" , signup_path, class:"inline-block px-4 py-2 bg-green-600 hover:bg-green-500 text-white font-medium rounded-md mb-5"%>
+        </div>
+  </div>

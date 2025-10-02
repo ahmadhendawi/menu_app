@@ -1,0 +1,42 @@
+<div id="<%= dom_id menu_item %>" class="w-full sm:w-auto my-5 p-4 border rounded-md shadow-sm space-y-3">
+  <% if menu_item.images.attached? %>
+    <div>
+      <%= image_tag url_for(menu_item.images.first), class:"w-full sm:w-64 rounded-md mb-3" %>
+    </div>
+  <% end %>
+
+  <div>
+    <strong class="block font-medium mb-1">Restaurant:</strong>
+    <%= menu_item.restaurant.name %>
+  </div>
+
+  <div>
+    <strong class="block font-medium mb-1"> Name:</strong>
+    <%= menu_item.name %>
+  </div>
+
+  <div>
+    <strong class="block font-medium mb-1">Description:</strong>
+    <%= menu_item.description %>
+  </div>
+
+  <div>
+    <strong class="block font-medium mb-1">Price:</strong>
+    $<%= menu_item.price %>
+  </div>
+  <div>
+  <%= button_to "Add to Cart", add_to_cart_path(menu_item), method: :post, class: "px-3 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-500" %>
+  </div>
+
+  <%#<div>
+    <%#<strong class="block font-medium mb-1">Active:</strong>
+    <%#<%= menu_item.active? ? "Yes" : "No" %>
+  <%#</div>
+
+  <%#<div> %>
+   <%# <strong class="block font-medium mb-1">Position:</strong>
+    <%#<%= menu_item.position %> 
+   
+ <%# </div>%>
+
+</div>

@@ -1,0 +1,16 @@
+<% content_for :title, "Receipt"%>
+  <div class="max-w-md mx-auto w-full bg-white border border-gray-300 rounded-md shadow-md p-6 text-center">
+    <h1 class="text-3xl font-bold mb-4">Receipt</h1>
+    <p class="text-lg font-semibold mb-2">Thanks, <%= @order.customer_name %> for your order!</p>
+    <p class="text-lg font-semibold mb-2">Phone: <%= @order.phone %></p>
+    <p class="text-lg font-semibold mb-4">Status: <%= @order.status.capitalize %></p>
+    <h2 class="text-2xl font-semibold mb-3">Your items</h2>
+    <ul class="text-left list-disc list-inside space-y-1">
+      <% @order.order_items.each do |item| %>
+        <li class="font-medium"><%= item.menu_item.name %> - $<%= item.menu_item.price %></li>
+      <% end %>
+    </ul>
+    <div class="mt-6">
+    <%= link_to "Exit", root_path, class: "px-3 py-2 text-white bg-red-600 rounded hover:bg-red-500 rounded-md" %>
+    </div>
+  </div>
