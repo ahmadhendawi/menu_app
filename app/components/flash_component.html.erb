@@ -1,0 +1,18 @@
+<div
+  class="mb-3 flex w-full items-start gap-3 rounded-xl border p-4 shadow-lg <%= style_classes %>"
+  data-controller="flash"
+  data-flash-delay-value="5000"
+  role="alert"
+>
+  <div class="min-w-0 flex-1">
+    <p class="text-sm font-semibold"><%= title %></p>
+    <p class="mt-1 text-sm leading-5"><%= @message %></p>
+  </div>
+
+  <button
+    type="button"
+    class="shrink-0 rounded p-1 text-lg leading-none hover:bg-white"
+    data-action="flash#dismiss"
+    aria-label="Dismiss notification"
+  >&times;</button>
+</div>

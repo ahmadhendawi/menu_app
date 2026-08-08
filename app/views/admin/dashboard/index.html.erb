@@ -1,50 +1,66 @@
-<%#the admin's dashboard of restaurant menus and admin's actions%>
 <% content_for :title, "Admin Dashboard" %>
 
-<div class="max-w-5xl mx-auto space-y-6">
-  <% if notice.present? %>
-  <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice"><%= notice %></p>
-  <% end %>
-  <div class="mx-auto text-center">
-    <%= form_with url: admin_dashboard_path, method: :get, local: true, class: "mb-4" do |f| %>
-    <%= f.text_field :search, value: params[:search], placeholder: " Search for an item...", class: "border px-2 py-1 rounded-md" %>
-    <%= f.submit "Search", class: "px-3 py-1 bg-blue-600 text-white rounded" %>
-    <% end %>
+<section>
+  <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+    <div>
+      <p class="text-sm font-semibold text-emerald-700">Restaurant dashboard</p>
+      <h1 class="mt-1 text-3xl font-bold"><%= current_restaurant.name %></h1>
+      <p class="mt-1 text-slate-600">Manage what customers see on your menu.</p>
+    </div>
+    <%= link_to "Add menu item", new_menu_item_path, class: "rounded-lg bg-emerald-600 px-4 py-2 text-center font-semibold text-white hover:bg-emerald-700" %>
   </div>
-    <h1 class="text-3xl font-bold">Welcome, <%= current_restaurant.name %></h1>
 
-      <div class="flex space-x-3">
-        <div class="p-4 bg-green-600 rounded-md shadow-md flex-1">
-          <p class="text-sm font-medium">Active items</p>
-          <p class="text-2xl font-bold"><%= @active_count %></p>
-        </div>
-        <div class="p-4 bg-red-600 rounded-md shadow-md flex-1">
-          <p class="text-sm font-medium">Inactive items</p>
-          <p class="text-2xl font-bold"><%= @inactive_count %></p>
-        </div>
+  <div class="mt-8 grid gap-4 sm:grid-cols-2">
+    <div class="rounded-xl border border-emerald-200 bg-emerald-50 p-5">
+      <p class="text-sm font-medium text-emerald-800">Active items</p>
+      <p class="mt-1 text-3xl font-bold text-emerald-900"><%= @active_count %></p>
+    </div>
+    <div class="rounded-xl border border-slate-200 bg-white p-5">
+      <p class="text-sm font-medium text-slate-500">Inactive items</p>
+      <p class="mt-1 text-3xl font-bold"><%= @inactive_count %></p>
+    </div>
+  </div>
+
+  <div class="mt-8 rounded-xl border border-slate-200 bg-white shadow-sm">
+    <div class="flex flex-col gap-4 border-b border-slate-200 p-5 sm:flex-row sm:items-center sm:justify-between">
+      <div>
+        <h2 class="text-xl font-bold">Menu items</h2>
+        <p class="mt-1 text-sm text-slate-500">Edit, activate, or remove items from your menu.</p>
       </div>
+      <%= form_with url: admin_dashboard_path, method: :get, local: true, class: "flex gap-2" do |f| %>
+        <%= f.text_field :search, value: params[:search], placeholder: "Search items", class: "w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none sm:w-56" %>
+        <%= f.submit "Search", class: "cursor-pointer rounded-lg border border-slate-300 px-3 py-2 text-sm font-semibold hover:bg-slate-100" %>
+      <% end %>
+    </div>
 
-  <div>
-    <h2 class="text-2xl font-semibold mb-3">Your Menu Items</h2>
-    <div class="space-y-4">
+    <% if @menu_items.any? %>
+      <div class="divide-y divide-slate-200">
       <% @menu_items.each do |item| %>
-        <div class="p-4 border rounded-md flex justify-between items-center">
+        <div class="flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <strong><%= item.name %></strong> - $<%= item.price %> 
-            (<%= item.active? ? "Active" : "Inactive" %>)
+            <div class="flex items-center gap-3">
+              <h3 class="font-semibold"><%= item.name %></h3>
+              <% if item.active? %>
+                <span class="rounded-full bg-emerald-100 px-2 py-1 text-xs font-medium text-emerald-800">Active</span>
+              <% else %>
+                <span class="rounded-full bg-slate-100 px-2 py-1 text-xs font-medium text-slate-600">Inactive</span>
+              <% end %>
+            </div>
+            <p class="mt-1 text-sm text-slate-500">$<%= item.price %> · Position <%= item.position %></p>
           </div>
-          <div class="flex space-x-2">
-            <%= link_to "Edit", edit_menu_item_path(item), class: "px-3 py-1 bg-gray-100 rounded-md hover:bg-gray-200" %>
-            <%= button_to "Delete", item, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "px-3 py-1 bg-red-600 text-white rounded-md hover:bg-red-500" %>
+          <div class="flex items-center gap-2">
+            <%= link_to "View", item, class: "rounded-lg border border-slate-300 px-3 py-2 text-sm font-medium hover:bg-slate-100" %>
+            <%= link_to "Edit", edit_menu_item_path(item), class: "rounded-lg border border-slate-300 px-3 py-2 text-sm font-medium hover:bg-slate-100" %>
+            <%= button_to "Delete", item, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "rounded-lg px-3 py-2 text-sm font-medium text-red-600 hover:bg-red-50" %>
           </div>
         </div>
       <% end %>
-    </div>
+      </div>
+    <% else %>
+      <div class="p-10 text-center">
+        <h3 class="font-semibold">No menu items found</h3>
+        <p class="mt-1 text-sm text-slate-500">Add your first item or try a different search.</p>
+      </div>
+    <% end %>
   </div>
-      <div class="mx-auto text-center">
-        <%= link_to "Add New Menu Item", new_menu_item_path, class: "mt-4 inline-block px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-500" %>
-      </div>
-      <div class="mx-auto text-center">
-        <%= button_to "Log Out", logout_path, method: :delete, class: "mt-2 inline-block px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-500" %>
-      </div>
-</div>
+</section>

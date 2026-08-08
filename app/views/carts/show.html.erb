@@ -1,25 +1,43 @@
 <% content_for :title, "Cart" %>
-<div class="max-w-3xl mx-auto p-6 rounded-md shadow-md bg-white border-2 border-gray-400">
-<% if @cart_items.any? %>
-  <ul class="space-y-3">
-    <% @cart_items.each do |item| %>
-      <li class="p-4 border rounded-md flex justify-between items-center">
-        <div><%= item.name %> - $<%= item.price %></div>
-        <%= button_to "Remove", remove_from_cart_path(item), method: :delete, class: "px-3 py-1 bg-red-600 text-white rounded-md hover:bg-red-500" %>
-      </li>
+<section class="mx-auto max-w-3xl">
+  <div class="mb-6">
+    <h1 class="text-3xl font-bold">Your cart</h1>
+    <p class="mt-1 text-slate-600">Review your items before checkout.</p>
+  </div>
+
+  <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+    <% if @cart_items.any? %>
+      <ul class="divide-y divide-slate-200">
+        <% @cart_items.each do |item| %>
+          <li class="flex items-center justify-between gap-4 py-4 first:pt-0">
+            <div>
+              <p class="font-semibold"><%= item.name %></p>
+              <p class="mt-1 text-sm text-slate-500"><%= item.description %></p>
+            </div>
+            <div class="flex items-center gap-4">
+              <span class="font-semibold">$<%= item.price %></span>
+              <%= button_to "Remove", remove_from_cart_path(item), method: :delete, class: "cursor-pointer text-sm font-medium text-red-600 hover:underline" %>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+
+      <div class="mt-6 flex items-center justify-between border-t border-slate-200 pt-6">
+        <span class="text-slate-600">Order total</span>
+        <span class="text-2xl font-bold">$<%= @cart_items.sum(&:price) %></span>
+      </div>
+
+      <div class="mt-6 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
+        <%= link_to "Continue browsing", root_path, class: "rounded-lg border border-slate-300 px-4 py-2 text-center font-semibold hover:bg-slate-100" %>
+        <%= link_to "Continue to checkout", new_order_path, class: "rounded-lg bg-emerald-600 px-4 py-2 text-center font-semibold text-white hover:bg-emerald-700" %>
+      </div>
+    <% else %>
+      <div class="py-10 text-center">
+        <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-slate-100 text-2xl">🛒</div>
+        <h2 class="mt-4 text-xl font-semibold">Your cart is empty</h2>
+        <p class="mt-2 text-slate-500">Choose a restaurant and add something delicious.</p>
+        <%= link_to "Browse restaurants", root_path, class: "mt-6 inline-block rounded-lg bg-emerald-600 px-4 py-2 font-semibold text-white hover:bg-emerald-700" %>
+      </div>
     <% end %>
-  </ul>
-
-  <div class="mt-8">
-    <p class="text-lg font-semibold">Total: $<%= @cart_items.sum(&:price) %></p>
   </div>
-
-  <div class="mt-8 flex gap-2">
-    <%= link_to "Continue Browsing", root_path, class: "px-3 py-2 text-white bg-blue-600 rounded hover:bg-blue-500 rounded-md" %>
-    <%= link_to "Checkout", new_order_path, class: "px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-500" %>
-  </div>
-<% else %>
-  <p>Your cart is empty.</p>
-  <%= link_to "Browse Restaurants", root_path, class: "px-3 py-2 flex space-y-4 text-white bg-blue-600 rounded hover:bg-blue-500 rounded-md" %>
-<% end %>
-</div>
+</section>
