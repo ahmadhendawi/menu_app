@@ -8,7 +8,13 @@ class CartsController < ApplicationController
    end
 
   def add
+    @menu_item = MenuItem.find(params[:menu_item_id])
    session[:cart] ||= {}
+   if session[:cart_restaurant_id] && session[:cart_restaurant_id] != @menu_item.restaurant_id
+    redirect_back(fallback_location: root_path, alert: "You can only add items from the same restaurant to your cart")
+    return
+   end
+   session[:cart_restaurant_id] = @menu_item.restaurant_id
     id = params[:menu_item_id].to_s
     session[:cart][id] =  1
     redirect_back fallback_location: root_path
@@ -19,6 +25,9 @@ class CartsController < ApplicationController
   def remove
     session[:cart] ||= {}
     session[:cart].delete(params[:menu_item_id].to_s)
+    if session[:cart].empty?
+      session.delete(:cart_restaurant_id)
+    end
     redirect_to cart_path
   end
 end
