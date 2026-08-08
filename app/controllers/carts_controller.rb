@@ -17,7 +17,7 @@ class CartsController < ApplicationController
    session[:cart_restaurant_id] = @menu_item.restaurant_id
     id = params[:menu_item_id].to_s
     session[:cart][id] =  1
-    redirect_back fallback_location: root_path
+    redirect_back fallback_location: root_path, notice: "Item added to cart"
     # reads menu item id from add button then converts it to a string
     # adds it to the cart setting quanitity to 1
   end
