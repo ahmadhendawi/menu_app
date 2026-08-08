@@ -1,4 +1,5 @@
 class Admin::DashboardController < ApplicationController
+  before_action :require_login
   def index
     # to show the current restaurants menu items and active/inactive counts
     @menu_items= current_restaurant.menu_items.order(:position)
