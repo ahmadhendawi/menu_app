@@ -2,17 +2,20 @@ require "test_helper"
 
 class CartsControllerTest < ActionDispatch::IntegrationTest
   test "should get show" do
-    get carts_show_url
+    get cart_url
+
     assert_response :success
   end
 
-  test "should get add" do
-    get carts_add_url
-    assert_response :success
+  test "should add item" do
+    post add_to_cart_url(menu_items(:one))
+
+    assert_redirected_to root_url
   end
 
-  test "should get remove" do
-    get carts_remove_url
-    assert_response :success
+  test "should remove item" do
+    delete remove_from_cart_url(menu_items(:one))
+
+    assert_redirected_to cart_url
   end
 end

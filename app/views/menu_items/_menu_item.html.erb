@@ -1,42 +1,19 @@
-<div id="<%= dom_id menu_item %>" class="w-full sm:w-auto my-5 p-4 border rounded-md shadow-sm space-y-3">
+<article id="<%= dom_id menu_item %>" class="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
   <% if menu_item.images.attached? %>
-    <div>
-      <%= image_tag url_for(menu_item.images.first), class:"w-full sm:w-64 rounded-md mb-3" %>
-    </div>
+    <%= image_tag url_for(menu_item.images.first), class: "h-52 w-full object-cover", alt: menu_item.name %>
+  <% else %>
+    <div class="flex h-52 items-center justify-center bg-slate-100 text-sm text-slate-400">No image</div>
   <% end %>
 
-  <div>
-    <strong class="block font-medium mb-1">Restaurant:</strong>
-    <%= menu_item.restaurant.name %>
+  <div class="p-5">
+    <div class="flex items-start justify-between gap-4">
+      <h2 class="text-lg font-bold"><%= menu_item.name %></h2>
+      <span class="font-semibold text-emerald-700">$<%= menu_item.price %></span>
+    </div>
+    <p class="mt-2 min-h-12 text-sm leading-6 text-slate-600"><%= menu_item.description %></p>
+
+    <% unless current_restaurant %>
+      <%= button_to "Add to cart", add_to_cart_path(menu_item), method: :post, class: "mt-5 w-full cursor-pointer rounded-lg bg-emerald-600 px-4 py-2 font-semibold text-white hover:bg-emerald-700" %>
+    <% end %>
   </div>
-
-  <div>
-    <strong class="block font-medium mb-1"> Name:</strong>
-    <%= menu_item.name %>
-  </div>
-
-  <div>
-    <strong class="block font-medium mb-1">Description:</strong>
-    <%= menu_item.description %>
-  </div>
-
-  <div>
-    <strong class="block font-medium mb-1">Price:</strong>
-    $<%= menu_item.price %>
-  </div>
-  <div>
-  <%= button_to "Add to Cart", add_to_cart_path(menu_item), method: :post, class: "px-3 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-500" %>
-  </div>
-
-  <%#<div>
-    <%#<strong class="block font-medium mb-1">Active:</strong>
-    <%#<%= menu_item.active? ? "Yes" : "No" %>
-  <%#</div>
-
-  <%#<div> %>
-   <%# <strong class="block font-medium mb-1">Position:</strong>
-    <%#<%= menu_item.position %> 
-   
- <%# </div>%>
-
-</div>
+</article>
