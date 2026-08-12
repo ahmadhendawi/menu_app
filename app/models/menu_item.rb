@@ -1,5 +1,5 @@
 class MenuItem < ApplicationRecord
-  belongs_to :restaurant
+  belongs_to :restaurant, touch: true
   has_many_attached :images
   validates :name, presence: true
   validates :price, presence: true
